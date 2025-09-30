@@ -13,7 +13,7 @@ document.getElementById("generate").addEventListener("click", async () => {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer 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",  // paste your key here
+        "Authorization": "Bearer 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",  // paste your key here
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
@@ -25,10 +25,17 @@ document.getElementById("generate").addEventListener("click", async () => {
       })
     });
     const data = await response.json();
+    console.log(data); // Debug: log the API response
 
-    if (data.choices && data.choices.length > 0) {
-      resultDiv.innerHTML = `<pre>${data.choices[0].message.content}</pre>`;
+    if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
+      // If you want to strip non-printable/emoji characters:
+      // const cleanText = data.choices[0].message.content.replace(/[^\x20-\x7E\n]/g, "");
+      // If you want to keep emojis but make them safe:
+      const cleanText = data.choices[0].message.content.normalize("NFKD");
+      resultDiv.innerHTML = `<pre>${cleanText}</pre>`;
       document.getElementById("copy").style.display = "block";
+    } else if (data.error && data.error.message) {
+      resultDiv.innerHTML = `❌ API Error: ${data.error.message}`;
     } else {
       resultDiv.innerHTML = "⚠️ No response from the API.";
     }
