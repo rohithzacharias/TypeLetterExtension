@@ -16,10 +16,15 @@ Just type what you need (e.g., *"Leave application for 3 days due to fever"* or 
 
 ## 📂 Project Structure
 TypeLetter/
+
 ├── manifest.json # Chrome extension config
+
 ├── popup.html # User interface
+
 ├── popup.js # API call + logic
+
 ├── style.css # Extension styling
+
 └── icon.png # Extension icon (optional)
 
 
