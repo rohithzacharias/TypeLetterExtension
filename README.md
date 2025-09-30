@@ -15,3 +15,27 @@ Just type what you need (e.g., *"Leave application for 3 days due to fever"* or 
 ---
 
 ## 📂 Project Structure
+TypeLetter/
+├── manifest.json # Chrome extension config
+├── popup.html # User interface
+├── popup.js # API call + logic
+├── style.css # Extension styling
+└── icon.png # Extension icon (optional)
+
+
+---
+
+## 🛠️ Installation
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/TypeLetter.git
+   cd TypeLetter
+2. Open Chrome and go to:
+chrome://extensions/
+
+3. Enable Developer mode (top right).
+
+4. Click Load unpacked and select the TypeLetter folder.
+
+5. The extension will appear in your toolbar. 🎉
+
