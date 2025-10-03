@@ -13,24 +13,47 @@ document.getElementById("generate").addEventListener("click", async () => {
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer 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",  // paste your key here
-        "Content-Type": "application/json"
+        "Authorization": "Bearer YOUR_OPENROUTER_API_KEY", // your key
+        "Content-Type": "application/json",
+        "HTTP-Referer": "https://your-extension-or-website.com", // optional but recommended
+        "X-Title": "TypeLetter" // optional but recommended
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",  // <--- here you tell it to use GPT-3.5
+        model: "openai/gpt-3.5-turbo", // OpenRouter model
         messages: [
-          { role: "system", content: "You are a helpful letter-writing assistant. Detect if the request should be formal or casual and generate a well-structured letter." },
-          { role: "user", content: prompt }
-        ]
+  { 
+    role: "system", 
+    content: `You are a helpful letter-writing assistant. 
+
+    FORMAL LETTER RULES:
+    1. Always include the "From" address block at the top (sender details).
+    2. Then include the "Date".
+    3. Then include the "To" address block (recipient details).
+    4. Then include a clear "Subject" line.
+    5. After subject, always start with "Respected Sir/Madam" (never use "Dear").
+    6. Then write the body of the letter in a polite and professional tone.
+    7. End with "Yours sincerely" or "Yours faithfully" and sender’s name.
+
+    INFORMAL LETTER RULES:
+    - Skip From/To/Subject.
+    - Start with casual greetings like "Hi", "Hello", "Bro", "Buddy", or "Dear".
+    - Keep the body simple and friendly.
+    - End with any casual closing like "Cheers", "Take care", etc.
+
+    GENERAL RULES:
+    - Always correct grammar and spelling.
+    - Ensure letter structure is neat and readable.`
+  },
+  { role: "user", content: prompt }
+]
+
       })
     });
+
     const data = await response.json();
-    console.log(data); // Debug: log the API response
+    console.log(data); // Debug: check full API response in console
 
     if (data.choices && data.choices.length > 0 && data.choices[0].message && data.choices[0].message.content) {
-      // If you want to strip non-printable/emoji characters:
-      // const cleanText = data.choices[0].message.content.replace(/[^\x20-\x7E\n]/g, "");
-      // If you want to keep emojis but make them safe:
       const cleanText = data.choices[0].message.content.normalize("NFKD");
       resultDiv.innerHTML = `<pre>${cleanText}</pre>`;
       document.getElementById("copy").style.display = "block";
