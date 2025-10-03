@@ -25,8 +25,14 @@ TypeLetter/
 
 ├── style.css # Extension styling
 
-└── icon.png # Extension icon (optional)
+├── train_bart.py # Training model
 
+├── train_classifier.py # To classify Formal and Informal Letters
+
+└── 📂 icons 
+     ├──icon16.png
+     ├──icon48.png
+     ├──icon128.png
 
 ---
 
