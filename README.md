@@ -30,6 +30,7 @@ TypeLetter/
 ├── train_classifier.py # To classify Formal and Informal Letters
 
 └── 📂 icons 
+
      ├──icon16.png
      
      ├──icon48.png
